@@ -1,6 +1,5 @@
 from catalog.models import Category, Product
 
-
 category1 = Category.objects.create(name="Категория 1", description="Описание 1")
 category2 = Category.objects.create(name="Категория 2", description="Описание 2")
 category3 = Category.objects.create(name="Категория 3", description="Описание 3")
