@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def home(request):
@@ -11,9 +11,9 @@ def contacts(request):
 
 
 def contacts_post(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        message = request.POST.get('message')
-        email = request.POST.get('email')
-        return HttpResponse(f'Введенные данные: {name}, {email}, {message}')
-    return render(request, 'catalog/contacts.html')
+    if request.method == "POST":
+        name = request.POST.get("name")
+        message = request.POST.get("message")
+        email = request.POST.get("email")
+        return HttpResponse(f"Введенные данные: {name}, {email}, {message}")
+    return render(request, "catalog/contacts.html")
