@@ -8,5 +8,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         Product.objects.all().delete()
-        call_command('loaddata', 'product_fixture.json')
+        call_command('loaddata', './data/product_fixture.json')
         self.stdout.write(self.style.SUCCESS('Successfully added products'))
