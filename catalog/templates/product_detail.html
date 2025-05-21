@@ -20,6 +20,7 @@
                 <div class="card shadow-sm">
                     <img src="{{ product.image | media_filter }}">
                     <div class="card-body">
+                        <p class="card-text">Категория товара: {{ product.category }}</p>
                         <p class="card-text">Наименование: {{ product.name }}</p>
                         <p class="card-text">Цена: {{ product.price }}</p>
                         <p class="card-text">Описание: {{ product.description|truncatechars:100|default:"отсутствует" }}</p>
