@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load my_tags %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+<section class="py-5 text-center container">
+        <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto"><h1 class="fw-light">{{ product.name }}</h1>
+        <p class="lead text-body-secondary">Подробности о товаре</p>
+        <p>
+            <a href="#" class="btn btn-primary my-2">Корзина</a>
+            <a href="#" class="btn btn-secondary my-2">Сравнения</a>
+        </p>
+    </div>
+</div>
+    </section>
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{{ product.image | media_filter }}">
+                    <div class="card-body">
+                        <p class="card-text">Категория товара: {{ product.category }}</p>
+                        <p class="card-text">Наименование: {{ product.name }}</p>
+                        <p class="card-text">Цена: {{ product.price }}</p>
+                        <p class="card-text">Описание: {{ product.description|truncatechars:100|default:"отсутствует" }}</p>
+                        <p class="card-text">Дата добавления: {{ product.created_at }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-primary" href="{% url 'catalog:products_list' %}" role="button">Назад</a>
+                            </div>
+                            <small class="text-body-secondary">Updated: {{ product.updated_at }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!--width: 100% height: auto object-fit: contain-->
