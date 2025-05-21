@@ -8,7 +8,7 @@ def home(request):
 
 
 def contacts(request):
-    return render(request, "contacts.html")
+    return render(request, "contacts_2.html")
 
 
 def contacts_post(request):
@@ -17,7 +17,7 @@ def contacts_post(request):
         message = request.POST.get("message")
         email = request.POST.get("email")
         return HttpResponse(f"Введенные данные: {name}, {email}, {message}")
-    return render(request, "catalog/contacts.html")
+    return render(request, "catalog/contacts_2.html")
 
 
 def products_list(request):
@@ -25,8 +25,8 @@ def products_list(request):
     context = {'products': products}
     return render(request, 'products_list.html', context)
 
+
 def product_detail(request, pk):
-    # products = Product.objects.get(pk=pk)
     product = get_object_or_404(Product, pk=pk)
     context = {'product': product}
     return render(request, 'product_detail.html', context)
