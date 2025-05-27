@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from catalog.models import Product
+from django.views.generic import ListView, TemplateView, DetailView, CreateView
 
 
 def home(request):
@@ -20,10 +21,17 @@ def contacts_post(request):
     return render(request, "catalog/contacts_2.html")
 
 
-def products_list(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'products_list.html', context)
+class ProductListView(ListView):
+    model = Product
+    # template_name = 'catalog/products_list.html'
+    # context_object_name = 'products_list'
+    # paginate_by = 6
+
+
+# def products_list(request):
+#     products = Product.objects.all()
+#     context = {'products': products}
+#     return render(request, 'products_list_fbv.html', context)
 
 
 def product_detail(request, pk):

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'catalog/base.html' %}
 {% load my_tags %}
 {% block title %}Продукты{% endblock %}
 {% block content %}
@@ -16,7 +16,7 @@
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {% for product in products %}
+            {% for product in object_list %}
             <div class="col">
                 <div class="card shadow-sm">
                     <img height="300" src="{{ product.image | media_filter }}" style="width: 100% height: auto object-fit: contain" alt="Фото товара">
