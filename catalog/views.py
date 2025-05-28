@@ -1,40 +1,31 @@
+from http.client import responses
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from catalog.models import Product
-from django.views.generic import ListView, TemplateView, DetailView, CreateView
+from catalog.models import Product, Contact
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
+from django.contrib import messages
 
 
-def home(request):
-    return render(request, "home.html")
+class ContactCreateView(CreateView):
+    model = Contact
+    template_name = 'catalog/contacts.html'
+    fields = ['name', 'phone', 'message']
+    success_url = reverse_lazy('catalog:contacts')
+    context_object_name = 'contacts'
 
-
-def contacts(request):
-    return render(request, "contacts_2.html")
-
-
-def contacts_post(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        message = request.POST.get("message")
-        email = request.POST.get("email")
-        return HttpResponse(f"Введенные данные: {name}, {email}, {message}")
-    return render(request, "catalog/contacts_2.html")
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Данные получены! Спасибо за обращение.')
+        return response
 
 
 class ProductListView(ListView):
     model = Product
-    # template_name = 'catalog/products_list.html'
-    # context_object_name = 'products_list'
-    # paginate_by = 6
+    template_name = 'catalog/products_list.html'
+    context_object_name = 'products'
 
 
-# def products_list(request):
-#     products = Product.objects.all()
-#     context = {'products': products}
-#     return render(request, 'products_list_fbv.html', context)
-
-
-def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {'product': product}
-    return render(request, 'product_detail.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
