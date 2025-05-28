@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from blog.models import Post
 
 
@@ -10,7 +11,10 @@ class PostAdmin(admin.ModelAdmin):
         "created_at",
         "sign",
     )
-    list_filter = ("created_at", "views_cnt",)
+    list_filter = (
+        "created_at",
+        "views_cnt",
+    )
     search_fields = (
         "title",
         "content",

@@ -4,7 +4,6 @@ from pathlib import Path
 from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL, STATICFILES_DIRS
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 USE_COLOR = True
@@ -111,7 +110,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = (BASE_DIR, 'static')
+STATICFILES_DIRS = (BASE_DIR, "static")
 
 
 # Default primary key field type

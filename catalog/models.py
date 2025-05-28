@@ -46,7 +46,7 @@ class Product(models.Model):
 
 
 class Contact(models.Model):
-    name = models.CharField(max_length=50, verbose_name='Имя')
+    name = models.CharField(max_length=50, verbose_name="Имя")
     phone = models.CharField(max_length=30, verbose_name="Телефон")
     message = models.TextField(max_length=300, verbose_name="Сообщение")
 

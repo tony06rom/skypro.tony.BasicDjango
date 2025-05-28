@@ -5,10 +5,10 @@
 <section class="py-5 text-center container">
         <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto"><h1 class="fw-light">{{ post.title }}</h1>
-        <p class="lead text-body-secondary">Пост</p>
+        <p class="lead text-body-secondary">Пост № {{ post.pk }}</p>
         <p>
-            <a href="#" class="btn btn-primary my-2">Редактировать</a>
-            <a href="#" class="btn btn-secondary my-2">Сравнения</a>
+            <a href="{% url 'blog:post_update' post.pk %}" class="btn btn-primary my-2">Редактировать</a>
+            <a href="{% url 'blog:post_del' post.pk %}" class="btn btn-secondary my-2">Удаление</a>
         </p>
     </div>
 </div>
