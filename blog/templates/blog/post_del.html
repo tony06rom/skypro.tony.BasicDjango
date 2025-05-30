@@ -14,7 +14,7 @@
               <h4 class="my-0 font-weight-normal">Удаление поста из блога</h4>
           </div>
           <div class="card-body">
-              <form method="post" action="" class="multipart/form-data">
+              <form method="post" action="" enctype="multipart/form-data">
                   {% csrf_token %}
                   <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Удалить</button>
                   <a href="{% url 'blog:posts' %}" class="btn btn-danger" type="button">Назад</a>

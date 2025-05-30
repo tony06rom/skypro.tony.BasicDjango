@@ -14,7 +14,7 @@
               <h4 class="my-0 font-weight-normal">Внесите изменения</h4>
           </div>
           <div class="card-body">
-              <form method="post" action="" class="multipart/form-data">
+              <form method="post" action="" enctype="multipart/form-data">
                   {% csrf_token %}
                   {{ form.as_p }}
                   <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Сохранить</button>
