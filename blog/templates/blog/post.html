@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+{% load my_tags_blog %}
+{% block title %}{{ post.name }}{% endblock %}
+{% block content %}
+<section class="py-5 text-center container">
+        <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto"><h1 class="fw-light">{{ post.title }}</h1>
+        <p class="lead text-body-secondary">Пост № {{ post.pk }}</p>
+        <p>
+            <a href="{% url 'blog:post_update' post.pk %}" class="btn btn-primary my-2">Редактировать</a>
+            <a href="{% url 'blog:post_del' post.pk %}" class="btn btn-secondary my-2">Удаление</a>
+        </p>
+    </div>
+</div>
+    </section>
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{{ post.image | media_filter }}">
+                    <div class="card-body">
+                        <h1 class="card-title">{{ post.title }}</h1>
+                        <p class="card-text">Контент: {{ post.content }}</p>
+                        <p class="card-text">Дата создания: {{ post.created_at }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-primary" href="{% url 'blog:posts' %}" role="button">Назад</a>
+                            </div>
+                            <small class="text-body-secondary">Просмотры: {{ post.views_cnt }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
