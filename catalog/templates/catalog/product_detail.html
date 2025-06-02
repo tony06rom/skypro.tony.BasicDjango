@@ -1,5 +1,5 @@
 {% extends 'catalog/base.html' %}
-{% load my_tags %}
+{% load my_tags_catalog %}
 {% block title %}{{ object.name }}{% endblock %}
 {% block content %}
 <section class="py-5 text-center container">
@@ -7,8 +7,8 @@
     <div class="col-lg-6 col-md-8 mx-auto"><h1 class="fw-light">{{ object.name }}</h1>
         <p class="lead text-body-secondary">Подробности о товаре</p>
         <p>
-            <a href="#" class="btn btn-primary my-2">Корзина</a>
-            <a href="#" class="btn btn-secondary my-2">Сравнения</a>
+            <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-primary my-2">Редактировать</a>
+            <a href="{% url 'catalog:product_del' product.pk %}" class="btn btn-secondary my-2">Удаление</a>
         </p>
     </div>
 </div>
