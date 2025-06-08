@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL, STATICFILES_DIRS
+from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL, STATICFILES_DIRS, AUTH_USER_MODEL
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "catalog",
     "blog",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -120,3 +121,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Dynamic files (Images)
 MEDIA_URL = "data/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "data/media")
+
+AUTH_USER_MODEL = 'users.CustomUser'
