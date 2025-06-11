@@ -1,7 +1,8 @@
 import os
 from pathlib import Path
 
-from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL, STATICFILES_DIRS, AUTH_USER_MODEL
+from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL, STATICFILES_DIRS, AUTH_USER_MODEL, LOGIN_REDIRECT_URL, \
+    LOGOUT_REDIRECT_URL
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -123,3 +124,16 @@ MEDIA_URL = "data/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "data/media")
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+LOGIN_REDIRECT_URL = '/catalog/products_list/'
+LOGOUT_REDIRECT_URL = '/catalog/products_list/'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "EMAIL"
+EMAIL_HOST_PASSWORD = "EMAIL_PASS"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
