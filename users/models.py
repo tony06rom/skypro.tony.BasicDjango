@@ -5,7 +5,7 @@ from django.db import models
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True, verbose_name="Email")
     phone = models.CharField(max_length=30, verbose_name="Телефон", blank=True, null=True, help_text="Введите номер телефона")
-    avatar = models.ImageField(upload_to="data/media/users/avatars/", verbose_name="Аватар", blank=True, null=True, help_text="Загрузите своё аватар")
+    avatar = models.ImageField(upload_to="users/avatars/", verbose_name="Аватар", blank=True, null=True, help_text="Загрузите своё аватар")
     country = models.CharField(max_length=50, verbose_name="Страна")
     token = models.CharField(max_length=100, verbose_name="Токен", blank=True, null=True)
     USERNAME_FIELD = "email"
