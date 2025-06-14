@@ -27,3 +27,15 @@
 .content {
   padding: 2rem 0;
 }
+
+.form-check-input {
+    width: 2em;
+    height: 1em;
+    margin-top: 0.25em;
+    vertical-align: top;
+}
+
+.form-switch .form-check-input {
+    width: 2.5em;
+    margin-left: -2.5em;
+}

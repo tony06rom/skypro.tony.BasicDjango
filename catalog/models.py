@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import CustomUser
 
 
 class Category(models.Model):
@@ -35,6 +36,8 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена за покупку")
     created_at = models.DateField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateField(auto_now=True, verbose_name="Дата последнего изменения")
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовано')
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=True, null=True, related_name='products', verbose_name='Автор')
 
     def __str__(self):
         return f"{self.name} {self.price}"
@@ -43,6 +46,16 @@ class Product(models.Model):
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["name", "created_at"]
+        permissions = [
+            ("can_add_product", "Добавление продуктов"),
+            ("can_change_product", "Изменение продуктов"),
+            ("can_unpublish_product", "Отмена публикации продуктов"),
+            ("can_view_unpublished", "Просмотр неопубликованных товаров"),
+            ("can_delete_product", "Удаление продуктов"),
+        ]
+
+    def can_publish(self, user):
+        return user.has_perm('catalog.can_unpublish_product') or user == self.owner
 
 
 class Contact(models.Model):

@@ -18,8 +18,13 @@ class StyleFormMixin:
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'description', 'image', 'category', 'price']
+        fields = ['name', 'description', 'image', 'category', 'price', 'is_published']
         exclude = ['created_at', 'updated_at']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['is_published'].widget.attrs.update({'class': 'form-check-input'})
+        self.fields['is_published'].label = "Опубликовать товар"
 
     FORBIDDEN_WORDS = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 
@@ -42,3 +47,14 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         if price <= 0:
             raise ValidationError('Цена не может быть отрицательной или ровняться нулю')
         return price
+
+
+class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ("is_published", "description", "category")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['is_published'].widget.attrs.update({'class': 'form-check-input'})
+        self.fields['is_published'].label = "Опубликовать товар"

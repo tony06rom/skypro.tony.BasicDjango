@@ -7,8 +7,9 @@
     <div class="col-lg-6 col-md-8 mx-auto"><h1 class="fw-light">Продукты</h1>
         <p class="lead text-body-secondary">Ознакомьтесь с нашими товарами ниже</p>
         <p>
-            <a href="#" class="btn btn-primary my-2">Корзина</a>
+            {% if perms.catalog.can_add_product %}
             <a href="{% url 'catalog:product_add' %}" class="btn btn-secondary my-2">Добавить товар</a>
+            {% endif %}
         </p>
     </div>
 </div>
@@ -21,13 +22,24 @@
                 <div class="card shadow-sm">
                     <img height="300" src="{{ product.image | media_filter }}" style="width: 100% height: auto object-fit: contain" alt="Фото товара">
                     <div class="card-body">
-                        <p class="card-text">Наименование: {{ object.name }}</p>
-                        <p class="card-text">Цена: {{ object.price }}</p>
+                        <p class="card-text">Наименование: {{ product.name }}</p>
+                        <p class="card-text">Цена: {{ product.price }}</p>
+                        {% if not product.is_published %}
+                        <div class="card-header bg-warning">
+                            <span class="badge bg-danger">Не опубликовано</span>
+                            {% if perms.catalog.can_view_unpublished %}
+                            <small class="text-muted">(видно только модераторам)</small>
+                            {% endif %}
+                        </div>
+                        {% endif %}
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Посмотреть</a>
+                                <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-sm btn-outline-secondary">Подробнее</a>
+                                {% if user == product.owner or perms.catalog.can_change_product %}
+                                <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-sm btn-outline-primary">Изменить</a>
+                                {% endif %}
                             </div>
-                            <small class="text-body-secondary">{{ object.updated_at }}</small>
+                            <small class="text-muted">{{ product.updated_at|date:"d.m.Y" }}</small>
                         </div>
                     </div>
                 </div>

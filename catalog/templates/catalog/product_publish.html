@@ -1,0 +1,27 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags_catalog %}
+{% block title %}Снять с публикации{% endblock %}
+{% block content %}
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto"><h1 class="fw-light">Публикация товара</h1></div>
+  </div>
+</section>
+<div class="d-flex justify-content-center">
+  <div class="col-lg-3 col-md-6 col-sm-12">
+      <div class="card mb-4 box-shadow">
+          <div class="card-header text-center">
+              <h4 class="my-0 font-weight-normal">Вы уверены, что хотите опубликовать этот товар?</h4>
+          </div>
+          <div class="card-body">
+              <h4 class="card-title">{{ product.name }}</h4>
+              <form method="post" action="" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-lg btn-block btn-outline-warning">Да, опубликовать</button>
+                  <a href="{% url 'catalog:product_detail' object.pk %}" class="btn btn-danger" type="button">Назад</a>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

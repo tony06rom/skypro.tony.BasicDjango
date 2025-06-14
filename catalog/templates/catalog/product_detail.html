@@ -7,9 +7,18 @@
     <div class="col-lg-6 col-md-8 mx-auto"><h1 class="fw-light">{{ object.name }}</h1>
         <p class="lead text-body-secondary">Подробности о товаре</p>
         <p>
-            <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-primary my-2">Редактировать</a>
-            <a href="{% url 'catalog:product_del' product.pk %}" class="btn btn-secondary my-2">Удаление</a>
-        </p>
+            {% if perms.catalog.can_change_product or user == object.owner %}
+            <a href="{% url 'catalog:product_update' object.pk %}" class="btn btn-primary my-2">Редактировать</a>
+            {% endif %}
+            {% if object.is_published %}
+            <a href="{% url 'catalog:product_unpublish' object.pk %}" class="btn btn-warning my-2">Снять с публикации</a>
+            {% else %}
+            <a href="{% url 'catalog:product_publish' object.pk %}" class="btn btn-success my-2">Опубликовать</a>
+            {% endif %}
+            {% if perms.catalog.can_delete_product %}
+            <a href="{% url 'catalog:product_del' object.pk %}" class="btn btn-danger my-2">Удалить</a>
+            {% endif %}
+            </p>
     </div>
 </div>
     </section>
