@@ -1,8 +1,14 @@
 import os
 from pathlib import Path
 
-from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL, STATICFILES_DIRS, AUTH_USER_MODEL, LOGIN_REDIRECT_URL, \
-    LOGOUT_REDIRECT_URL
+from django.conf.global_settings import (
+    AUTH_USER_MODEL,
+    LOGIN_REDIRECT_URL,
+    LOGOUT_REDIRECT_URL,
+    MEDIA_ROOT,
+    MEDIA_URL,
+    STATICFILES_DIRS,
+)
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -123,15 +129,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_URL = "data/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "data/media")
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = "users.CustomUser"
 
-LOGIN_URL = 'users:user_register'
-LOGIN_REDIRECT_URL = '/catalog/products_list/'
-LOGOUT_REDIRECT_URL = '/catalog/products_list/'
+LOGIN_URL = "users:user_register"
+LOGIN_REDIRECT_URL = "/catalog/products_list/"
+LOGOUT_REDIRECT_URL = "/catalog/products_list/"
 
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.com'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.yandex.com"
 EMAIL_PORT = 465
 EMAIL_HOST_USER = os.getenv("EMAIL")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASS")
