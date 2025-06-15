@@ -1,17 +1,20 @@
 {% extends 'catalog/base.html' %}
 {% load my_tags_catalog %}
-{% block title %}Радактирование{% endblock %}
+{% block title %}Радактирование {{ object.name }}{% endblock %}
 {% block content %}
 <section class="py-5 text-center container">
   <div class="row py-lg-5">
-    <div class="col-lg-6 col-md-8 mx-auto"><h1 class="fw-light">Радактирование</h1></div>
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Радактирование товара</h1>
+        <p class="lead text-body-secondary">Внесите необходимые изменения</p>
+    </div>
   </div>
 </section>
 <div class="d-flex justify-content-center">
   <div class="col-lg-3 col-md-6 col-sm-12">
       <div class="card mb-4 box-shadow">
           <div class="card-header text-center">
-              <h4 class="my-0 font-weight-normal">Внесите изменения</h4>
+              <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
           </div>
           <div class="card-body">
               <form method="post" action="" enctype="multipart/form-data">
