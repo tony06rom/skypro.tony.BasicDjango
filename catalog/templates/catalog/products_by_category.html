@@ -1,21 +1,44 @@
 {% extends 'catalog/base.html' %}
 {% load my_tags_catalog %}
-{% block title %}Продукты{% endblock %}
+{% block title %}Товары по категориям{% endblock %}
 {% block content %}
 <section class="py-5 text-center container">
     <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto"><h1 class="fw-light">Продукты</h1>
+        <div class="col-lg-6 col-md-8 mx-auto"><h1 class="fw-light">Товары по категориям</h1>
             <p class="lead text-body-secondary">Ознакомьтесь с нашими товарами ниже</p>
             <p>
                 {% if perms.catalog.can_add_product %}
                 <a href="{% url 'catalog:product_add' %}" class="btn btn-secondary my-2">Добавить товар</a>
-                <a href="{% url 'catalog:products_by_category' %}" class="btn btn-warning my-2">Товары по категориям</a>
                 {% endif %}
             </p>
         </div>
     </div>
 </section>
-<div class="album py-5 bg-body-tertiary">
+
+<div class="container mt-5">
+    <form method="get" class="mb-4">
+        <div class="form-group">
+            <label for="categorySelect">Выберите категорию:</label>
+            <select class="form-control" id="categorySelect" name="category" onchange="this.form.submit()">
+                <option value="">-- Все категории --</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}"
+                    {% if request.GET.category == category.id|stringformat:"i" %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+    {% if selected_category %}
+        <h2 class="mb-3">{{ selected_category.name }}</h2>
+        {% if not products %}
+        <div class="alert alert-info">
+            Товаров в данной категории не существует
+        </div>
+        {% endif %}
+    {% endif %}
+    <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for product in object_list %}
@@ -49,4 +72,6 @@
         </div>
     </div>
 </div>
+</div>
+
 {% endblock %}
