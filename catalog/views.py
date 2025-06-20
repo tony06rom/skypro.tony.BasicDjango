@@ -7,7 +7,8 @@ from django.views.generic import CreateView, DeleteView, DetailView, ListView, U
 
 from catalog.forms import ProductForm, ProductModeratorForm
 from catalog.mixins import OwnerOrModeratorMixin, OwnerRequiredMixin
-from catalog.models import Contact, Product
+from catalog.models import Contact, Product, Category
+from catalog.services import get_products_from_cache, get_products_by_category, get_all_categories
 
 
 class ContactCreateView(CreateView):
@@ -29,7 +30,7 @@ class ProductListView(ListView):
     context_object_name = "products"
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = get_products_from_cache()
         if not self.request.user.has_perm("catalog.can_view_unpublished"):
             queryset = queryset.filter(is_published=True)
         return queryset.order_by("name")
@@ -131,3 +132,22 @@ class ProductUnpublishView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVi
         product.save()
         messages.success(self.request, f'Товар "{product.name}" снят с публикации')
         return redirect("catalog:product_detail", pk=product.pk)
+
+
+class ProductsByCategoryView(ListView):
+    template_name = 'catalog/products_by_category.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        category_id = self.request.GET.get('category')
+        return get_products_by_category(category_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = get_all_categories()
+        selected_id = self.request.GET.get('category')
+        if selected_id:
+            context['selected_category'] = Category.objects.filter(
+                id=selected_id
+            ).first()
+        return context
